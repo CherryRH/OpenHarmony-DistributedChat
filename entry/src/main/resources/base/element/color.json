@@ -1,0 +1,20 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "header_background",
+      "value": "#d6e4ff"
+    },
+    {
+      "name": "card_background",
+      "value": "#FFFAFAFA"
+    },
+    {
+      "name": "button_background",
+      "value": "#87e8de"
+    }
+  ]
+}
