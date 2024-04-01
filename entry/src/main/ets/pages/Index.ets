@@ -1,5 +1,6 @@
 import { ChatCard } from '../components/chatCard'
 import Header from '../components/header'
+import MoreButton from '../components/moreButton'
 
 /*
  * 页面：主页
@@ -17,9 +18,18 @@ struct Index {
   }
 
   build() {
-    Column({space: 5}) {
-      Header({title: 'Chat'})
-      this.buildChatList()
+    //栈，重叠组件
+    Stack() {
+      //聊天主视图
+      Column({space: 5}) {
+        Header({title: 'Chat'})
+        this.buildChatList()
+      }
+      .full()
+      //功能界面
+
+      //功能按钮
+      MoreButton()
     }
     .full()
   }

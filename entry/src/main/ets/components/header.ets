@@ -11,16 +11,12 @@ export default struct Header{
   build() {
     Stack() {
       Row() {
-        Row({space:15}) {
-          Image($r('app.media.ic_gallery_photoedit_more'))
-            .width(25)
-        }
-        .padding(10)
-        Row({space:15}) {
-          Image($r('app.media.ic_public_search'))
-            .width(25)
-        }
-        .padding(10)
+        Image($r('app.media.ic_user_portrait'))
+          .width(40)
+          .margin({left: 10})
+        Image($r('app.media.ic_public_search'))
+          .width(25)
+          .margin({right: 10})
       }
       .width("100%")
       .height("100%")
