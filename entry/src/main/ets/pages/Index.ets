@@ -1,4 +1,5 @@
 import { ChatCard } from '../components/chatCard'
+import Header from '../components/header'
 
 /*
  * 页面：主页
@@ -11,10 +12,13 @@ struct Index {
   onPageShow() {
     //页面显示时加载数据
     this.chatItems.push(new ChatItem('聊天1'))
+    this.chatItems.push(new ChatItem('聊天2'))
+    this.chatItems.push(new ChatItem('聊天3'))
   }
 
   build() {
-    Column() {
+    Column({space: 5}) {
+      Header({title: 'Chat'})
       this.buildChatList()
     }
     .full()
@@ -36,6 +40,7 @@ struct Index {
     )
   }
   .full()
+  .alignListItem(ListItemAlign.Center)
 }
 }
 

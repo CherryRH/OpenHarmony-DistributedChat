@@ -7,9 +7,6 @@ import router from '@ohos.router'
 @Component
 export default struct Header{
   @Prop title: string;
-  handleAddButtonClicked = () => {
-    console.log('www');
-  };
 
   build() {
     Stack() {
@@ -22,9 +19,6 @@ export default struct Header{
         Row({space:15}) {
           Image($r('app.media.ic_public_search'))
             .width(25)
-          Image($r('app.media.ic_public_add'))
-            .width(25)
-            .onClick(() => {this.handleAddButtonClicked;})
         }
         .padding(10)
       }

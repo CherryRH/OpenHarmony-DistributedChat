@@ -33,12 +33,15 @@ export struct ChatCard {
       .justifyContent(FlexAlign.Start)
       .alignItems(HorizontalAlign.End)
     }
-    .width('100%')
+    .width('95%')
     .height(80)
     .padding(15)
+    .borderRadius(10)
     .justifyContent(FlexAlign.SpaceBetween)
     .alignItems(VerticalAlign.Center)
+    .alignSelf(ItemAlign.Center)
     .backgroundColor($r('app.color.card_background'))
+    .shadow({ radius: 10, color: Color.Gray, offsetX: 6, offsetY: 4 })
   }
 }
 
