@@ -1,0 +1,2 @@
+# OpenHarmony-DistributedChat
+基于OpenHarmony的分布式聊天应用
