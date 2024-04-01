@@ -1,6 +1,7 @@
 import { ChatCard } from '../components/chatCard'
 import Header from '../components/header'
 import MoreButton from '../components/moreButton'
+import SideBar from '../components/sideBar'
 
 /*
  * 页面：主页
@@ -8,7 +9,12 @@ import MoreButton from '../components/moreButton'
 @Entry
 @Component
 struct Index {
+  //聊天列表元素数组
   @State chatItems: ChatItem[] = []
+  //侧边栏是否展开
+  @State ifSideBarUnfold: boolean = false;
+  //侧边栏x偏移
+  @State xOffset: string = '-100%';
 
   onPageShow() {
     //页面显示时加载数据
@@ -26,10 +32,19 @@ struct Index {
         this.buildChatList()
       }
       .full()
-      //功能界面
-
+      //侧边栏
+      SideBar()
+        .offset({x: this.xOffset})
       //功能按钮
-      MoreButton()
+      MoreButton({ifPushed: this.ifSideBarUnfold})
+        .position({x: '10%', y: '80%'})
+        .onClick(() => {
+          //实现侧边栏的展开以及动画效果
+          this.ifSideBarUnfold = !this.ifSideBarUnfold;
+          animateTo({duration: 300, curve: Curve.Rhythm}, () => {
+            this.xOffset = this.ifSideBarUnfold ? '-10%' : '-100%';
+          })
+        })
     }
     .full()
   }
