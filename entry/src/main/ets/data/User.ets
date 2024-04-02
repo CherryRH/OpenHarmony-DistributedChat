@@ -2,7 +2,7 @@
 /*
  * 类：用户
  * */
-class User {
+export class User {
   private userID: string;
   private name: string;
   private avatarUrl: Resource;
@@ -39,4 +39,7 @@ class User {
 
 }
 
-export default User
+//导出User实例（本机用户）
+let user: User = new User();
+
+export default user as User

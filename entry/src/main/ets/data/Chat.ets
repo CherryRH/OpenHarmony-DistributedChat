@@ -1,4 +1,4 @@
-import User from './User'
+import { User } from './User'
 import Message from './Message'
 /*
  * 类：聊天

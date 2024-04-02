@@ -15,8 +15,11 @@ struct Index {
   //侧边栏x偏移
   @State xOffset: string = '-100%';
 
+
   onPageShow() {
-    //页面显示时加载数据
+    //加载用户数据
+
+    //页面显示时加载聊天数据
     if (this.chatItems.length === 0) {
       this.chatItems.push(new ChatItem('聊天1'))
       this.chatItems.push(new ChatItem('聊天2'))
