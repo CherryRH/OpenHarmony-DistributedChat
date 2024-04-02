@@ -1,5 +1,6 @@
 import router from '@ohos.router'
 import { routerUserPage } from '../utils/routers';
+import IconButton from './iconButton';
 
 /*
  * 组件：页头
@@ -17,13 +18,10 @@ export default struct Header{
           .width(40)
           .margin({left: 10})
           .onClick(() => {routerUserPage()})
-        Image($r('app.media.ic_public_search'))
-          .width(25)
-          .margin({right: 10})
+        IconButton({iconUrl: $r('app.media.ic_public_search')})
       }
       .width("100%")
       .height("100%")
-      .padding(5)
       .justifyContent(FlexAlign.SpaceBetween)
       Text(this.title)
         .width("200vp")
@@ -50,23 +48,14 @@ export struct BackHeader{
   build() {
     Stack() {
       Row() {
-        Row({space:15}) {
-          Image($r('app.media.ic_public_arrow_left'))
-            .width(25)
-            .onClick(() => {
-              router.back();
-            })
-        }
-        .padding(10)
-        Row({space:15}) {
-          Image($r('app.media.ic_public_more_list'))
-            .width(25)
-        }
-        .padding(10)
+        IconButton({iconUrl: $r('app.media.ic_public_arrow_left')})
+          .onClick(() => {
+            router.back();
+          })
+        IconButton({iconUrl: $r('app.media.ic_public_more_list')})
       }
       .width("100%")
       .height("100%")
-      .padding(5)
       .justifyContent(FlexAlign.SpaceBetween)
       Text(this.title)
         .width("200vp")
