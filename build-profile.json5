@@ -1,6 +1,19 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "certpath": "C:\\Users\\陈瑞涵\\.ohos\\config\\openharmony\\auto_ohos_default_DistributedChat_com.ohprp.distributedchat.cer",
+          "storePassword": "0000001B1E87BA8811DC24499E506BB14A931BF5DAF490D55DE2B1BC37B2CA083780ABDE93917B70CF2926",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001BBE9954C3AE8E209C2B97B03C4E4ED4C712CA2948ED2AEB5C53F99E72AEE0A444D7193A97CB3C6F",
+          "profile": "C:\\Users\\陈瑞涵\\.ohos\\config\\openharmony\\auto_ohos_default_DistributedChat_com.ohprp.distributedchat.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\陈瑞涵\\.ohos\\config\\openharmony\\auto_ohos_default_DistributedChat_com.ohprp.distributedchat.p12"
+        }
+      }
+    ],
     "products": [
       {
         "name": "default",

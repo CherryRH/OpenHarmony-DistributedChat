@@ -56,7 +56,6 @@ export struct ChatCard {
     .justifyContent(FlexAlign.SpaceBetween)
     .alignItems(VerticalAlign.Center)
     .alignSelf(ItemAlign.Center)
-    .backgroundColor($r('app.color.card_background'))
     .shadow({ radius: 10, color: Color.Gray, offsetX: 6, offsetY: 4 })
     .clickEffect({level: ClickEffectLevel.HEAVY, scale: 0.9})
     .onClick(() => {
