@@ -41,6 +41,7 @@ export default struct UserCard {
     .padding(15)
     .borderRadius(10)
     .justifyContent(FlexAlign.SpaceBetween)
+
     .shadow({ radius: 10, color: Color.Gray, offsetX: 6, offsetY: 4 })
   }
 }

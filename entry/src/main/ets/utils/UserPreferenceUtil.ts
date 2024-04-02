@@ -2,6 +2,7 @@ import preferences from '@ohos.data.preferences'
 
 /*
  * 用户首选项工具类
+ * 用户首选项为应用提供Key-Value键值型的数据处理能力，对其修改和查询。
  * */
 
 class PreferenceUtil {
@@ -11,6 +12,7 @@ class PreferenceUtil {
   prefMap: Map<string, preferences.Preferences> = new Map()
   //加载首选项实例（异步）
   loadPreference_async(context, name: string) {
+    //将来的结果，有先有关系，所以用then
     preferences.getPreferences(context, name)
       .then(pref => {
         this.prefMap.set(name, pref)
@@ -43,7 +45,9 @@ class PreferenceUtil {
     }
     try {
       let pref = this.prefMap.get(name)
+      //写数据，添加指定类型键值对到数据库，使用callback异步回调
       await pref.put(key, value)
+      //刷盘
       await pref.flush()
       console.log(this.logTag, 'Preference ' + name + ' 保存 ' + key + ' = ' + value + ' 成功')
       return true;
@@ -61,6 +65,7 @@ class PreferenceUtil {
     }
     try {
       let pref = this.prefMap.get(name)
+      //读数据
       let value = await pref.get(key, defaultValue)
       console.log(this.logTag, 'Preference ' + name + ' 读取 ' + key + ' = ' + value + ' 成功')
       return value

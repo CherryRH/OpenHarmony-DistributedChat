@@ -1,18 +1,6 @@
 import { IconType } from '@ohos.arkui.advanced.ComposeListItem';
 import { routerChatPage } from '../utils/routers';
 
-/*
- * 类：时间类
- * */
-class Time {
-  hours: number;
-  minutes: number;
-
-  constructor(hours: number = 0, minutes: number = 0) {
-    this.hours = hours;
-    this.minutes = minutes;
-  }
-}
 
 /*
  * 组件：聊天卡片
