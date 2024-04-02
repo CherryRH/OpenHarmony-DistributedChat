@@ -18,9 +18,16 @@ struct Index {
 
   onPageShow() {
     //页面显示时加载数据
-    this.chatItems.push(new ChatItem('聊天1'))
-    this.chatItems.push(new ChatItem('聊天2'))
-    this.chatItems.push(new ChatItem('聊天3'))
+    if (this.chatItems.length === 0) {
+      this.chatItems.push(new ChatItem('聊天1'))
+      this.chatItems.push(new ChatItem('聊天2'))
+      this.chatItems.push(new ChatItem('聊天3'))
+    }
+    //设置聊天的ID
+    for (let index = 0; index < this.chatItems.length; index++) {
+      const element = this.chatItems[index];
+      element.ID = index + 1;
+    }
   }
 
   build() {
@@ -28,7 +35,7 @@ struct Index {
     Stack() {
       //聊天主视图
       Column({space: 5}) {
-        Header({title: 'Chat'})
+        Header({title: 'Chat', iconUrl: $r('app.media.ic_user_portrait')})
         this.buildChatList()
       }
       .full()

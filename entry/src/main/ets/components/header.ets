@@ -1,4 +1,5 @@
 import router from '@ohos.router'
+import { routerUserPage } from '../utils/routers';
 
 /*
  * 组件：页头
@@ -7,13 +8,15 @@ import router from '@ohos.router'
 @Component
 export default struct Header{
   @Prop title: string;
+  @Prop iconUrl: Resource;
 
   build() {
     Stack() {
       Row() {
-        Image($r('app.media.ic_user_portrait'))
+        Image(this.iconUrl)
           .width(40)
           .margin({left: 10})
+          .onClick(() => {routerUserPage()})
         Image($r('app.media.ic_public_search'))
           .width(25)
           .margin({right: 10})

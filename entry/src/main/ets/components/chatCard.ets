@@ -1,4 +1,5 @@
 import { IconType } from '@ohos.arkui.advanced.ComposeListItem';
+import { routerChatPage } from '../utils/routers';
 
 /*
  * 组件：聊天卡片
@@ -42,6 +43,10 @@ export struct ChatCard {
     .alignSelf(ItemAlign.Center)
     .backgroundColor($r('app.color.card_background'))
     .shadow({ radius: 10, color: Color.Gray, offsetX: 6, offsetY: 4 })
+    .clickEffect({level: ClickEffectLevel.HEAVY, scale: 0.9})
+    .onClick(() => {
+      routerChatPage(this.ID);
+    })
   }
 }
 
