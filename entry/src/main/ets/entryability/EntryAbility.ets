@@ -3,9 +3,19 @@ import hilog from '@ohos.hilog';
 import UIAbility from '@ohos.app.ability.UIAbility';
 import Want from '@ohos.app.ability.Want';
 import window from '@ohos.window';
-
+import abilityAccessCtrl,{Permissions} from '@ohos.abilityAccessCtrl'
+import { checkPermission, requestPermission } from '../distributed_capability/RequestPermission'
+const PERMISSIONS: Array<Permissions>= [
+  'ohos.permission.DISTRIBUTED_DATASYNC'
+] ;
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    console.log("Create Entry Ability") ;
+    requestPermission(this.context,PERMISSIONS).then(()=>
+    {
+      checkPermission(this.context,PERMISSIONS) ;
+    }) ;
+
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
   }
 

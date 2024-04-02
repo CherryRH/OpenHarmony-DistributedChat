@@ -2,9 +2,14 @@ import { ChatCard } from '../components/chatCard'
 import Header from '../components/header'
 import MoreButton from '../components/moreButton'
 import SideBar from '../components/sideBar'
+import abilityAccessCtrl , {Permissions}from '@ohos.abilityAccessCtrl';
+import common from '@ohos.app.ability.common';
+import { requestPermission } from '../distributed_capability/RequestPermission'
+
 /*
  * 页面：主页
  * */
+
 @Entry
 @Component
 struct Index {
@@ -29,6 +34,7 @@ struct Index {
       element.ID = index + 1;
     }
   }
+  // when entry , request the permission
 
   build() {
     //栈，重叠组件

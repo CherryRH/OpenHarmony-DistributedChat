@@ -4,13 +4,13 @@
       {
         "name": "default",
         "material": {
-          "certpath": "C:\\Users\\陈瑞涵\\.ohos\\config\\openharmony\\auto_ohos_default_DistributedChat_com.ohprp.distributedchat.cer",
-          "storePassword": "0000001B1E87BA8811DC24499E506BB14A931BF5DAF490D55DE2B1BC37B2CA083780ABDE93917B70CF2926",
+          "certpath": "C:\\Users\\administ\\.ohos\\config\\openharmony\\auto_ohos_default_DistributedChat_com.ohprp.distributedchat.cer",
+          "storePassword": "0000001B8AECB772B873D5F86C9A71DBECE2925DE2D3B9CF1E0214D3D7DF8A9AB8F571C7AF4841D5BE9632",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001BBE9954C3AE8E209C2B97B03C4E4ED4C712CA2948ED2AEB5C53F99E72AEE0A444D7193A97CB3C6F",
-          "profile": "C:\\Users\\陈瑞涵\\.ohos\\config\\openharmony\\auto_ohos_default_DistributedChat_com.ohprp.distributedchat.p7b",
+          "keyPassword": "0000001BEB7BC3A8C2B1F2E0CE34E0325BEE01C5DFDEF790D77B7F4CB5E9D29565CEC0BE02E5D3070285C7",
+          "profile": "C:\\Users\\administ\\.ohos\\config\\openharmony\\auto_ohos_default_DistributedChat_com.ohprp.distributedchat.p7b",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "C:\\Users\\陈瑞涵\\.ohos\\config\\openharmony\\auto_ohos_default_DistributedChat_com.ohprp.distributedchat.p12"
+          "storeFile": "C:\\Users\\administ\\.ohos\\config\\openharmony\\auto_ohos_default_DistributedChat_com.ohprp.distributedchat.p12"
         }
       }
     ],
@@ -20,7 +20,7 @@
         "signingConfig": "default",
         "compileSdkVersion": 10,
         "compatibleSdkVersion": 10,
-        "runtimeOS": "OpenHarmony",
+        "runtimeOS": "OpenHarmony"
       }
     ],
     "buildModeSet": [
