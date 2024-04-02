@@ -3,10 +3,14 @@ import hilog from '@ohos.hilog';
 import UIAbility from '@ohos.app.ability.UIAbility';
 import Want from '@ohos.app.ability.Want';
 import window from '@ohos.window';
+import preferenceUtil from '../utils/UserPreferenceUtil'
+import userPrefName from '../utils/common'
 
 export default class EntryAbility extends UIAbility {
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+  async onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
+    //加载用户首选项
+    await preferenceUtil.loadPreference(this.context, userPrefName);
   }
 
   onDestroy(): void {

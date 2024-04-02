@@ -25,7 +25,6 @@ export struct ChatCard {
   @Prop iconUrl: Resource;
   @Prop time: Date;
 
-
   build() {
     Row({space: 15}) {
       Image(this.iconUrl)
@@ -49,7 +48,7 @@ export struct ChatCard {
       .justifyContent(FlexAlign.Start)
       .alignItems(HorizontalAlign.End)
     }
-    .width('95%')
+    .width('97%')
     .height(80)
     .padding(15)
     .borderRadius(10)

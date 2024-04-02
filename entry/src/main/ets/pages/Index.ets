@@ -2,6 +2,10 @@ import { ChatCard } from '../components/chatCard'
 import Header from '../components/header'
 import MoreButton from '../components/moreButton'
 import SideBar from '../components/sideBar'
+import user from '../data/User'
+import preferenceUtil from '../utils/UserPreferenceUtil'
+import userPrefName from '../utils/common'
+
 /*
  * 页面：主页
  * */
@@ -15,10 +19,12 @@ struct Index {
   //侧边栏x偏移
   @State xOffset: string = '-100%';
 
-
-  onPageShow() {
+  async onPageShow() {
     //加载用户数据
-
+    // let userName = await preferenceUtil.getPereferenceValue(userPrefName, 'userName', user.getName());
+    // let avatarType = await preferenceUtil.getPereferenceValue(userPrefName, 'avatarUrl', user.getAvatarType());
+    // user.setName(userName as string);
+    // user.setAvatarType(avatarType as number);
     //页面显示时加载聊天数据
     if (this.chatItems.length === 0) {
       this.chatItems.push(new ChatItem('聊天1'))
@@ -38,7 +44,7 @@ struct Index {
     Stack() {
       //聊天主视图
       Column({space: 5}) {
-        Header({title: 'Chat', iconUrl: $r('app.media.ic_user_portrait')})
+        Header({title: 'Chat', iconUrl: user.getAvatarUrl()})
         this.buildChatList()
       }
       .full()
