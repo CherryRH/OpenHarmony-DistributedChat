@@ -2,6 +2,19 @@ import { IconType } from '@ohos.arkui.advanced.ComposeListItem';
 import { routerChatPage } from '../utils/routers';
 
 /*
+ * 类：时间类
+ * */
+class Time {
+  hours: number;
+  minutes: number;
+
+  constructor(hours: number = 0, minutes: number = 0) {
+    this.hours = hours;
+    this.minutes = minutes;
+  }
+}
+
+/*
  * 组件：聊天卡片
  * 使用：显示一个聊天卡片
  * */
@@ -10,6 +23,8 @@ export struct ChatCard {
   ID?: number = 0;
   @Prop name: string;
   @Prop iconUrl: Resource;
+  @Prop time: Date;
+
 
   build() {
     Row({space: 15}) {
@@ -26,7 +41,7 @@ export struct ChatCard {
       .justifyContent(FlexAlign.Start)
       .alignItems(HorizontalAlign.Start)
       Column() {
-        Text('时间')
+        Text(this.time.getHours().toString() + ":" +this.time.getMinutes().toString())
           .sub_font()
       }
       .layoutWeight(1)

@@ -2,7 +2,6 @@ import { ChatCard } from '../components/chatCard'
 import Header from '../components/header'
 import MoreButton from '../components/moreButton'
 import SideBar from '../components/sideBar'
-
 /*
  * 页面：主页
  * */
@@ -22,6 +21,7 @@ struct Index {
       this.chatItems.push(new ChatItem('聊天1'))
       this.chatItems.push(new ChatItem('聊天2'))
       this.chatItems.push(new ChatItem('聊天3'))
+      this.chatItems.push(new ChatItem('聊天4'))
     }
     //设置聊天的ID
     for (let index = 0; index < this.chatItems.length; index++) {
@@ -66,7 +66,7 @@ struct Index {
       this.chatItems,
       (item: ChatItem) => {
         ListItem() {
-          ChatCard({name: item.name, ID: item.ID, iconUrl: item.iconUrl})
+          ChatCard({name: item.name, ID: item.ID, iconUrl: item.iconUrl , time:item.time})
         }
       }
     )
@@ -83,13 +83,17 @@ class ChatItem {
   ID: number;
   name: string;
   iconUrl: Resource;
+  time: Date; // 新增的时间属性
 
-  constructor(name: string, iconUrl?: Resource) {
+
+  constructor(name: string, iconUrl?: Resource , time?: Date) {
     this.name = name;
     this.iconUrl = iconUrl ?? $r('app.media.ic_user_portrait');
     this.ID = 0;
+    this.time = time ?? new Date(); // 初始化时间属性，默认为当前时间
   }
 }
+
 
 /*
  * 样式表：占满空间
