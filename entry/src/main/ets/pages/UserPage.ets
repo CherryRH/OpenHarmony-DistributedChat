@@ -1,7 +1,7 @@
 @Entry
 @Component
 struct UserPage {
-  @State message: string = 'Hello World'
+  @State message: string = '用户'
 
   build() {
     Row() {
