@@ -61,19 +61,19 @@ struct Index {
    * */
   @Builder
   buildChatList() {
-  List({space: 1}) {
-    ForEach(
-      this.chatItems,
-      (item: ChatItem) => {
-        ListItem() {
-          ChatCard({name: item.name, ID: item.ID, iconUrl: item.iconUrl , time:item.time})
+    List({space: 1}) {
+      ForEach(
+        this.chatItems,
+        (item: ChatItem) => {
+          ListItem() {
+            ChatCard({name: item.name, ID: item.ID, iconUrl: item.iconUrl , time:item.time})
+          }
         }
-      }
-    )
+      )
+    }
+    .full()
+    .alignListItem(ListItemAlign.Center)
   }
-  .full()
-  .alignListItem(ListItemAlign.Center)
-}
 }
 
 /*
@@ -84,7 +84,6 @@ class ChatItem {
   name: string;
   iconUrl: Resource;
   time: Date; // 新增的时间属性
-
 
   constructor(name: string, iconUrl?: Resource , time?: Date) {
     this.name = name;
