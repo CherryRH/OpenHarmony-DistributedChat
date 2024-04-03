@@ -4,8 +4,6 @@ import Message from './Message'
  * 类：聊天
  * */
 class Chat {
-  private user: User[] = [];
-
   private iconUrl: Resource;
   private name: string;
   private ID: number = 0;

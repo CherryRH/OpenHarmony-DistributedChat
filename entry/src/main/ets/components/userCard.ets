@@ -135,6 +135,7 @@ export default struct UserCard {
         }
         .width('97%')
         .padding(15)
+        .margin({top: 10, bottom: 10})
         .borderRadius(10)
         .offset({y: this.yOffset})
         .shadow({ radius: 10, color: Color.Gray, offsetX: 6, offsetY: 4 })
