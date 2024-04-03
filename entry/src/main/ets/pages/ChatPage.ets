@@ -3,6 +3,8 @@ import ChatInput from '../components/chatInput';
 import { BackHeader } from '../components/header'
 import { PageInfo } from '../utils/routers';
 import  MessageBox from "../components/messageBox"
+import {ChatMessage} from '../data/chatMessageDB'
+
 //获取路由传参
 const params: PageInfo = router.getParams() as PageInfo;
 
@@ -65,26 +67,4 @@ struct ChatPage {
 function full() {
   .width('100%')
   .height('100%')
-}
-
-/*
- * 类：聊天卡片对象
- * */
-class ChatMessage {
-  ID: number;
-  username : string;
-  message: string;
-  iconUrl: Resource;
-  time: Date; // 新增的时间属性
-  isSelf: Boolean
-
-  constructor(username: string, message: string, isSelf: Boolean , iconUrl?: Resource , time?: Date ) {
-    this.username = username;
-    this.iconUrl = iconUrl ?? $r('app.media.ic_user_portrait');
-    this.ID = 0;
-    this.time = time ?? new Date(); // 初始化时间属性，默认为当前时间
-    this.message =  message
-    this.isSelf = isSelf ?? false
-  }
-
 }

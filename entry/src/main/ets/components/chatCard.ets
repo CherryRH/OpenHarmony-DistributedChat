@@ -10,6 +10,7 @@ import { routerChatPage } from '../utils/routers';
 export struct ChatCard {
   ID?: number = 0;
   @Prop name: string;
+  @Prop newMessage: string;
   @Prop iconUrl: Resource;
   @Prop time: Date;
 
@@ -20,7 +21,7 @@ export struct ChatCard {
       Column() {
         Text(this.name)
         Blank()
-        Text('最新消息')
+        Text(this.newMessage)
           .sub_font()
       }
       .layoutWeight(4)
