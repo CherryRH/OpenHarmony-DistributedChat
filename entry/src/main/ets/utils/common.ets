@@ -4,3 +4,17 @@
 const userPrefName: string = 'UserPreference';
 
 export default userPrefName;
+//用户首选项key值
+export const userPrefKeys = new Map<string, string>([
+  ['userName', 'USERNAME'],
+  ['userID', 'USERID'],
+  ['avatarUrlType', 'AVATARURLTYPE']
+]);
+
+//用户头像列表
+export const avatars: Resource[] = [
+  $r('app.media.ic_user_portrait'),
+  $r('app.media.avatar_1'),
+  $r('app.media.avatar_2'),
+  $r('app.media.avatar_3')
+]

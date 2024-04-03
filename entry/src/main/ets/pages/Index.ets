@@ -4,7 +4,7 @@ import MoreButton from '../components/moreButton'
 import SideBar from '../components/sideBar'
 import user from '../data/User'
 import preferenceUtil from '../utils/UserPreferenceUtil'
-import userPrefName from '../utils/common'
+import userPrefName, {userPrefKeys} from '../utils/common'
 
 /*
  * 页面：主页
@@ -12,6 +12,8 @@ import userPrefName from '../utils/common'
 @Entry
 @Component
 struct Index {
+  //页头用户头像
+  @State avatarUrl: Resource = user.getAvatarUrl();
   //聊天列表元素数组
   @State chatItems: ChatItem[] = []
   //侧边栏是否展开
@@ -21,10 +23,13 @@ struct Index {
 
   async onPageShow() {
     //加载用户数据
-    // let userName = await preferenceUtil.getPereferenceValue(userPrefName, 'userName', user.getName());
-    // let avatarType = await preferenceUtil.getPereferenceValue(userPrefName, 'avatarUrl', user.getAvatarType());
-    // user.setName(userName as string);
-    // user.setAvatarType(avatarType as number);
+    let userName = await preferenceUtil.getPereferenceValue(userPrefName, userPrefKeys.get('userName'), user.getName());
+    let userID = await preferenceUtil.getPereferenceValue(userPrefName, userPrefKeys.get('userID'), user.getId());
+    let avatarType = await preferenceUtil.getPereferenceValue(userPrefName, userPrefKeys.get('avatarUrlType'), user.getAvatarType());
+    user.setName(userName as string);
+    user.setID(userID as string);
+    user.setAvatarType(avatarType as number);
+    this.avatarUrl = user.getAvatarUrl();
     //页面显示时加载聊天数据
     if (this.chatItems.length === 0) {
       this.chatItems.push(new ChatItem('聊天1'))
@@ -44,7 +49,7 @@ struct Index {
     Stack() {
       //聊天主视图
       Column({space: 5}) {
-        Header({title: 'Chat', iconUrl: user.getAvatarUrl()})
+        Header({title: 'Chat', iconUrl: this.avatarUrl})
         this.buildChatList()
       }
       .full()

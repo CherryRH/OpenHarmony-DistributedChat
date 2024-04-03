@@ -5,16 +5,11 @@ import user from '../data/User'
 @Entry
 @Component
 struct UserPage {
-  @State userName: string = user.getName();
-  @State userID: string = user.getId();
-  @State avatarType: number = user.getAvatarType();
-
-  @State ifEdit: boolean = false;
 
   build() {
     Column({space: 10}) {
       BackHeader({title: '我的'})
-      UserCard({username: this.userName, userID: this.userID, avatarType: this.avatarType, ifEdit: this.ifEdit})
+      UserCard()
     }
     .full()
     .justifyContent(FlexAlign.Start)

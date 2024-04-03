@@ -11,6 +11,10 @@ export default class EntryAbility extends UIAbility {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
     //加载用户首选项
     await preferenceUtil.loadPreference(this.context, userPrefName);
+
+    //设置屏幕常亮（开发板太容易熄了）
+    let thisWindow = await window.getLastWindow(this.context);
+    thisWindow.setWindowKeepScreenOn(true);
   }
 
   onDestroy(): void {

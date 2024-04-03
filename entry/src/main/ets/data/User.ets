@@ -1,3 +1,4 @@
+import { avatars } from '../utils/common';
 
 /*
  * 类：用户
@@ -5,14 +6,14 @@
 export class User {
   private userID: string;
   private name: string;
-  private avatarUrl: Resource;
+  private avatarUrl: Resource = $r('app.media.ic_user_portrait');
   private avatarType: number;
 
-  constructor(userID?: string, userName?: string, avatarUrl?: Resource) {
+  constructor(userID?: string, userName?: string, avatarType?: number) {
     this.userID = userID ?? 'User@unknown.com';
     this.name = userName ?? 'User';
-    this.avatarUrl = avatarUrl ?? $r('app.media.ic_user_portrait');
-    this.avatarType = -1;
+    this.avatarType = avatarType ?? 0;
+    this.setAvatarType(this.avatarType);
   }
 
   public getId(): string {
@@ -39,34 +40,12 @@ export class User {
     this.userID = userID;
   }
 
-  public setAvatarUrl(avatarUrl: Resource) {
-    this.avatarUrl = avatarUrl;
-  }
-
   public setAvatarType(avatarType: number) {
     this.avatarType = avatarType;
-    switch (avatarType) {
-      case 0: {
-        this.avatarUrl = $r('app.media.ic_user_portrait');
-        break;
-      }
-      case 1: {
-        this.avatarUrl = $r('app.media.avatar_1');
-        break;
-      }
-      case 2: {
-        this.avatarUrl = $r('app.media.avatar_2');
-        break;
-      }
-      case 3: {
-        this.avatarUrl = $r('app.media.avatar_3');
-        break;
-      }
-      default : {
-        this.avatarUrl = $r('app.media.ic_user_portrait');
-        break;
-      }
+    if (avatarType >= 0 && avatarType <= avatars.length) {
+      this.avatarUrl = avatars[avatarType];
     }
+    else this.avatarUrl = avatars[0];
   }
 }
 

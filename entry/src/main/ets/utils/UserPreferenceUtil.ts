@@ -61,7 +61,7 @@ class PreferenceUtil {
   async getPereferenceValue(name: string, key: string, defaultValue: preferences.ValueType) {
     if(!this.prefMap.has(name)) {
       console.log(this.logTag, 'Preference ' + name + ' 未加载')
-      return null;
+      return defaultValue;
     }
     try {
       let pref = this.prefMap.get(name)
@@ -72,7 +72,7 @@ class PreferenceUtil {
     }
     catch (Error) {
       console.log(this.logTag, 'Preference ' + name + ' 读取 ' + key + ' 的值失败', JSON.stringify(Error))
-      return null;
+      return defaultValue;
     }
   }
 }
