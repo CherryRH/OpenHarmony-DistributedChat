@@ -34,6 +34,7 @@
       }
     ],
     "requestPermissions" : [
+      //request distributed data manipulate permission
         {
           "name" : "ohos.permission.DISTRIBUTED_DATASYNC" ,
           "reason" : "$string:app_name" ,
@@ -46,7 +47,12 @@
         },
         {
           "name" : "ohos.permission.DISTRIBUTED_SOFTBUS_CENTER"
-        }
+        },
+      // request distributed device granting and authenticating permission .
+      {
+        "name" :"ohos.permission.ACCESS_SERVICE_DM"
+      }
+
       ]
   }
 

@@ -5,9 +5,9 @@
         "name": "default",
         "material": {
           "certpath": "C:\\Users\\administ\\.ohos\\config\\openharmony\\auto_ohos_default_DistributedChat_com.ohprp.distributedchat.cer",
-          "storePassword": "0000001B8AECB772B873D5F86C9A71DBECE2925DE2D3B9CF1E0214D3D7DF8A9AB8F571C7AF4841D5BE9632",
+          "storePassword": "0000001BF3C2D6D63CECD3F8385E7DD2E40D36055515A2F1591B68B3EF685D959310952D13222F136BAF35",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001BEB7BC3A8C2B1F2E0CE34E0325BEE01C5DFDEF790D77B7F4CB5E9D29565CEC0BE02E5D3070285C7",
+          "keyPassword": "0000001BF76E95D377880736BCBD90C54FF2B1CA573DCB54C5197F1398A6217B6B8ACDC5AD83243D3F444A",
           "profile": "C:\\Users\\administ\\.ohos\\config\\openharmony\\auto_ohos_default_DistributedChat_com.ohprp.distributedchat.p7b",
           "signAlg": "SHA256withECDSA",
           "storeFile": "C:\\Users\\administ\\.ohos\\config\\openharmony\\auto_ohos_default_DistributedChat_com.ohprp.distributedchat.p12"

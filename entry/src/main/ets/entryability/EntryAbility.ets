@@ -5,6 +5,7 @@ import Want from '@ohos.app.ability.Want';
 import window from '@ohos.window';
 import abilityAccessCtrl,{Permissions} from '@ohos.abilityAccessCtrl'
 import { checkPermission, requestPermission } from '../distributed_capability/RequestPermission'
+import { DistributedDeviceManager } from '../distributed_capability/DistibutedFunctions';
 const PERMISSIONS: Array<Permissions>= [
   'ohos.permission.DISTRIBUTED_DATASYNC'
 ] ;
@@ -15,7 +16,7 @@ export default class EntryAbility extends UIAbility {
     {
       checkPermission(this.context,PERMISSIONS) ;
     }) ;
-
+    DistributedDeviceManager.startDeviceDiscovery() ;
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
   }
 
