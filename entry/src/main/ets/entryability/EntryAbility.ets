@@ -6,18 +6,25 @@ import window from '@ohos.window';
 import abilityAccessCtrl,{Permissions} from '@ohos.abilityAccessCtrl'
 import { checkPermission, requestPermission } from '../distributed_capability/RequestPermission'
 import { DistributedDeviceManager } from '../distributed_capability/DistibutedFunctions';
+import preferenceUtil from '../utils/UserPreferenceUtil'
+import userPrefName from '../utils/common'
 const PERMISSIONS: Array<Permissions>= [
   'ohos.permission.DISTRIBUTED_DATASYNC'
 ] ;
 export default class EntryAbility extends UIAbility {
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+  async onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
+    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
+    //加载用户首选项
+    await preferenceUtil.loadPreference(this.context, userPrefName);
     console.log("Create Entry Ability") ;
     requestPermission(this.context,PERMISSIONS).then(()=>
     {
       checkPermission(this.context,PERMISSIONS) ;
     }) ;
     DistributedDeviceManager.startDeviceDiscovery() ;
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
+    //设置屏幕常亮（开发板太容易熄了）
+    let thisWindow = await window.getLastWindow(this.context);
+    thisWindow.setWindowKeepScreenOn(true);
   }
 
   onDestroy(): void {

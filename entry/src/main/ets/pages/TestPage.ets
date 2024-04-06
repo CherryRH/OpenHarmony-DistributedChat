@@ -1,18 +1,14 @@
-import router from '@ohos.router'
-import ChatInput from '../components/chatInput';
-import { BackHeader } from '../components/header'
-import { PageInfo } from '../utils/routers';
+
+/*
+ * 测试页
+ * 可以在此测试组件等等
+ * */
+
 import  MessageBox from "../components/messageBox"
-import {ChatMessage} from '../data/chatMessageDB'
-
-//获取路由传参
-const params: PageInfo = router.getParams() as PageInfo;
-
 @Entry
 @Component
-struct ChatPage {
-  @State messageStr: string = '';
-
+struct TestPage {
+  @State message: string = 'Hello World'
 
   //聊天列表元素数组
   @State chatMessages: ChatMessage[] = []
@@ -35,36 +31,33 @@ struct ChatPage {
     }
   }
   build() {
-
     Column() {
-      BackHeader({title: '聊天' + params.id})
-      Row({space: 5}){
-        List({space: 6}) {
-          ForEach(
-            this.chatMessages,
-            (item: ChatMessage) => {
-              ListItem() {
-                MessageBox({message: item.message, username: item.username, ID: item.ID, iconUrl: item.iconUrl , time:item.time , isSelf:item.isSelf})
-              }
-            }
 
-          )
-        }
-      }
-    .height('85%')
-      ChatInput({messageStr: this.messageStr})
     }
-    .full()
     .backgroundColor("#F5F5F5")
-    .justifyContent(FlexAlign.SpaceBetween)
+    .width('100%')
+    .height('100%')
   }
 }
 
 /*
- * 样式表：占满空间
+ * 类：聊天卡片对象
  * */
-@Styles
-function full() {
-  .width('100%')
-  .height('100%')
+class ChatMessage {
+  ID: number;
+  username : string;
+  message: string;
+  iconUrl: Resource;
+  time: Date; // 新增的时间属性
+  isSelf: Boolean
+
+  constructor(username: string, message: string, isSelf: Boolean , iconUrl?: Resource , time?: Date ) {
+    this.username = username;
+    this.iconUrl = iconUrl ?? $r('app.media.ic_user_portrait');
+    this.ID = 0;
+    this.time = time ?? new Date(); // 初始化时间属性，默认为当前时间
+    this.message =  message
+    this.isSelf = isSelf ?? false
+  }
+
 }

@@ -5,7 +5,10 @@ import SideBar from '../components/sideBar'
 import abilityAccessCtrl , {Permissions}from '@ohos.abilityAccessCtrl';
 import common from '@ohos.app.ability.common';
 import { requestPermission } from '../distributed_capability/RequestPermission'
-
+import user from '../data/User'
+import preferenceUtil from '../utils/UserPreferenceUtil'
+import userPrefName, {userPrefKeys} from '../utils/common'
+import {ChatItem} from '../data/chatItemDB'
 /*
  * 页面：主页
  * */
@@ -13,6 +16,8 @@ import { requestPermission } from '../distributed_capability/RequestPermission'
 @Entry
 @Component
 struct Index {
+  //页头用户头像
+  @State avatarUrl: Resource = user.getAvatarUrl();
   //聊天列表元素数组
   @State chatItems: ChatItem[] = []
   //侧边栏是否展开
@@ -20,8 +25,16 @@ struct Index {
   //侧边栏x偏移
   @State xOffset: string = '-100%';
 
-  onPageShow() {
-    //页面显示时加载数据
+  async onPageShow() {
+    //加载用户数据
+    let userName = await preferenceUtil.getPereferenceValue(userPrefName, userPrefKeys.get('userName'), user.getName());
+    let userID = await preferenceUtil.getPereferenceValue(userPrefName, userPrefKeys.get('userID'), user.getId());
+    let avatarType = await preferenceUtil.getPereferenceValue(userPrefName, userPrefKeys.get('avatarUrlType'), user.getAvatarType());
+    user.setName(userName as string);
+    user.setID(userID as string);
+    user.setAvatarType(avatarType as number);
+    this.avatarUrl = user.getAvatarUrl();
+    //页面显示时加载聊天数据
     if (this.chatItems.length === 0) {
       this.chatItems.push(new ChatItem('聊天1'))
       this.chatItems.push(new ChatItem('聊天2'))
@@ -41,7 +54,7 @@ struct Index {
     Stack() {
       //聊天主视图
       Column({space: 5}) {
-        Header({title: 'Chat', iconUrl: $r('app.media.ic_user_portrait')})
+        Header({title: 'Chat', iconUrl: this.avatarUrl})
         this.buildChatList()
       }
       .full()
@@ -67,36 +80,18 @@ struct Index {
    * */
   @Builder
   buildChatList() {
-  List({space: 1}) {
-    ForEach(
-      this.chatItems,
-      (item: ChatItem) => {
-        ListItem() {
-          ChatCard({name: item.name, ID: item.ID, iconUrl: item.iconUrl , time:item.time})
+    List({space: 1}) {
+      ForEach(
+        this.chatItems,
+        (item: ChatItem) => {
+          ListItem() {
+            ChatCard({name: item.name, ID: item.ID, iconUrl: item.iconUrl, time:item.time, newMessage: item.newMessage})
+          }
         }
-      }
-    )
-  }
-  .full()
-  .alignListItem(ListItemAlign.Center)
-}
-}
-
-/*
- * 类：聊天卡片对象
- * */
-class ChatItem {
-  ID: number;
-  name: string;
-  iconUrl: Resource;
-  time: Date; // 新增的时间属性
-
-
-  constructor(name: string, iconUrl?: Resource , time?: Date) {
-    this.name = name;
-    this.iconUrl = iconUrl ?? $r('app.media.ic_user_portrait');
-    this.ID = 0;
-    this.time = time ?? new Date(); // 初始化时间属性，默认为当前时间
+      )
+    }
+    .full()
+    .alignListItem(ListItemAlign.Center)
   }
 }
 

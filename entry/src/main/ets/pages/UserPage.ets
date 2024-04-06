@@ -1,17 +1,26 @@
+import { BackHeader } from '../components/header';
+import UserCard from '../components/userCard';
+import user from '../data/User'
+
 @Entry
 @Component
 struct UserPage {
-  @State message: string = 'Hello World'
 
   build() {
-    Row() {
-      Column() {
-        Text(this.message)
-          .fontSize(50)
-          .fontWeight(FontWeight.Bold)
-      }
-      .width('100%')
+    Column({space: 10}) {
+      BackHeader({title: '我的'})
+      UserCard()
     }
-    .height('100%')
+    .full()
+    .justifyContent(FlexAlign.Start)
   }
+}
+
+/*
+ * 样式表：占满空间
+ * */
+@Styles
+function full() {
+  .width('100%')
+  .height('100%')
 }

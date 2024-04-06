@@ -15,8 +15,10 @@ export default struct Header{
     Stack() {
       Row() {
         Image(this.iconUrl)
-          .width(40)
+          .width(50)
+          .borderRadius(10)
           .margin({left: 10})
+          .clickEffect({level: ClickEffectLevel.HEAVY, scale: 0.7})
           .onClick(() => {routerUserPage()})
         IconButton({iconUrl: $r('app.media.ic_public_search')})
       }

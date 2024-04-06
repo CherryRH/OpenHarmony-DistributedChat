@@ -20,6 +20,7 @@ export default struct ChatInput {
           .backgroundColor($r('app.color.button_background'))
       }
       .width('100%')
+      .padding(3)
       .justifyContent(FlexAlign.SpaceBetween)
     }
     .width('100%')
