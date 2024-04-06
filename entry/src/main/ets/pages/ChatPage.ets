@@ -4,6 +4,7 @@ import { BackHeader } from '../components/header'
 import { PageInfo } from '../utils/routers';
 import  MessageBox from "../components/messageBox"
 import {ChatMessage} from '../data/chatMessageDB'
+import user from '../data/User'
 
 //获取路由传参
 const params: PageInfo = router.getParams() as PageInfo;
@@ -34,25 +35,51 @@ struct ChatPage {
       element.ID = index + 1;
     }
   }
+
+  handleMessage =  () => {
+    this.chatMessages.pop()
+    const test =  ()=>{
+      this.chatMessages.push(new ChatMessage(user.getName(), this.messageStr, true , user.getAvatarUrl()))
+    }
+     test()
+    this.scroller.scrollEdge(Edge.Bottom)
+    this.messageStr = ""
+  }
+
+  handleAreaChange =  () => {
+    const test =  ()=>{
+      this.chatMessages.push(new ChatMessage(user.getName(),  this.messageStr, true , user.getAvatarUrl()))
+
+    }
+     test()
+    this.scroller.scrollEdge(Edge.Bottom)
+    this.messageStr = ""
+  }
+
+  scroller = new Scroller();
+
   build() {
 
     Column() {
       BackHeader({title: '聊天' + params.id})
       Row({space: 5}){
-        List({space: 6}) {
-          ForEach(
-            this.chatMessages,
-            (item: ChatMessage) => {
-              ListItem() {
-                MessageBox({message: item.message, username: item.username, ID: item.ID, iconUrl: item.iconUrl , time:item.time , isSelf:item.isSelf})
+        Scroll(this.scroller) {
+          List({space: 6}) {
+            ForEach(
+              this.chatMessages,
+              (item: ChatMessage) => {
+                ListItem() {
+                  MessageBox({message: item.message, username: item.username, ID: item.ID, iconUrl: item.iconUrl , time:item.time , isSelf:item.isSelf})
+                }
               }
-            }
-
-          )
+            )
+          }
         }
+        .onAreaChange(this.handleAreaChange)
+        .scrollable(ScrollDirection.Vertical)
       }
     .height('85%')
-      ChatInput({messageStr: this.messageStr})
+      ChatInput({messageStr: this.messageStr, handleMessage: this.handleMessage})
     }
     .full()
     .backgroundColor("#F5F5F5")

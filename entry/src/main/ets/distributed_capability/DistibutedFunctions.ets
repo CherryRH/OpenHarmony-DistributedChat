@@ -8,6 +8,7 @@ export class DistributedDeviceManager {
 
   static init() {
     // call create Device Manager , pass a callback function . 2 para : error : error code , pass 1 when error in create
+    // call create Device Manager , pass a callback function . 2 para : error : error code , pass 1 when error in create
     // data  : type is deviceManager.DeviceManager
     deviceManager.createDeviceManager("com.ohprp.distributedchat", (error, data) => {
       if (error) {

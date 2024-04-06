@@ -48,12 +48,15 @@
         {
           "name" : "ohos.permission.DISTRIBUTED_SOFTBUS_CENTER"
         },
+      {
+        "name" : "ohos.permission.INTERNET"
+      },
       // request distributed device granting and authenticating permission .
       {
         "name" :"ohos.permission.ACCESS_SERVICE_DM"
       }
-
       ]
+
   }
 
 }

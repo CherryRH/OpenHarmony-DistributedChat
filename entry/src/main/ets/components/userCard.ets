@@ -129,6 +129,8 @@ export default struct UserCard {
                 await preferenceUtil.putPereferenceValue(userPrefName, userPrefKeys.get('userName'), this.username);
                 await preferenceUtil.putPereferenceValue(userPrefName, userPrefKeys.get('userID'), this.userID);
                 await preferenceUtil.putPereferenceValue(userPrefName, userPrefKeys.get('avatarUrlType'), this.avatarType);
+                user.setName(this.username);
+                user.setID(this.userID);
               })
           }
           .width('100%')

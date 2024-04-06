@@ -4,6 +4,7 @@
 @Component
 export default struct ChatInput {
   @Link messageStr: string;
+  handleMessage = () => {}
 
   build() {
     Column() {
@@ -18,6 +19,7 @@ export default struct ChatInput {
         Button('发送')
           .layoutWeight(1)
           .backgroundColor($r('app.color.button_background'))
+          .onClick(() => {this.handleMessage()  } )
       }
       .width('100%')
       .padding(3)
