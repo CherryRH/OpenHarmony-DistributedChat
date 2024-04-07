@@ -6,8 +6,7 @@ export default struct SideBar {
 
   build() {
     Column() {
-      WebComponent()
-        .height("100%")
+
     }
     .bar_card()
   }

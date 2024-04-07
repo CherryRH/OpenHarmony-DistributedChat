@@ -56,7 +56,7 @@ export class ChatMessage {
   time: Date; // 新增的时间属性
   isSelf: Boolean
 
-  constructor(username: string, message: string, isSelf: Boolean , iconUrl?: Resource , time?: Date , avatarUrlType?: number) {
+  constructor(username: string, message: string, isSelf: Boolean ,avatarUrlType?: number, time?: Date) {
     this.username = username;
     this.avatarUrlType = avatarUrlType ?? 0;
     this.iconUrl = avatars[this.avatarUrlType];
