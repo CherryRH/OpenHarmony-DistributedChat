@@ -6,13 +6,15 @@ import abilityAccessCtrl , {Permissions}from '@ohos.abilityAccessCtrl';
 import common from '@ohos.app.ability.common';
 import { requestPermission } from '../distributed_capability/RequestPermission'
 import user from '../data/User'
-import preferenceUtil from '../utils/UserPreferenceUtil'
-import userPrefName, {userPrefKeys} from '../utils/common'
-import {ChatItem} from '../data/chatItemDB'
+import { ChatItem } from '../data/chatItemDB'
+import chatItemDB from '../data/chatItemDB'
+import { getNowTime } from '../utils/common'
+
+const logTag: string = 'IndexTestTag';
+
 /*
  * 页面：主页
  * */
-
 @Entry
 @Component
 struct Index {
@@ -25,27 +27,35 @@ struct Index {
   //侧边栏x偏移
   @State xOffset: string = '-100%';
 
-  async onPageShow() {
+  async aboutToAppear() {
     //加载用户数据
-    let userName = await preferenceUtil.getPereferenceValue(userPrefName, userPrefKeys.get('userName'), user.getName());
-    let userID = await preferenceUtil.getPereferenceValue(userPrefName, userPrefKeys.get('userID'), user.getId());
-    let avatarType = await preferenceUtil.getPereferenceValue(userPrefName, userPrefKeys.get('avatarUrlType'), user.getAvatarType());
-    user.setName(userName as string);
-    user.setID(userID as string);
-    user.setAvatarType(avatarType as number);
+    await user.loadUser();
     this.avatarUrl = user.getAvatarUrl();
-    //页面显示时加载聊天数据
-    if (this.chatItems.length === 0) {
-      this.chatItems.push(new ChatItem('聊天1'))
-      this.chatItems.push(new ChatItem('聊天2'))
-      this.chatItems.push(new ChatItem('聊天3'))
-      this.chatItems.push(new ChatItem('聊天4'))
+    //加载聊天列表数据
+    if (!chatItemDB.isDefined()) {
+      //预览器数据
+      if (this.chatItems.length == 0) {
+        for (let index = 0; index < 3; index++) {
+          this.chatItems.push(new ChatItem(`聊天${index + 1}（预览器）`, '最新消息', getNowTime(), index));
+        }
+      }
+      console.warn(logTag, '聊天列表数据库未加载（可能在使用预览器）')
     }
-    //设置聊天的ID
-    for (let index = 0; index < this.chatItems.length; index++) {
-      const element = this.chatItems[index];
-      element.ID = index + 1;
+    else {
+      //如果数据库为空，则初始化几个聊天
+      if (await chatItemDB.isEmpty()) {
+        await chatItemDB.addChatItem(new ChatItem('中二病也要谈恋爱！', '邪王真眼は最高です', getNowTime()));
+        await chatItemDB.addChatItem(new ChatItem('中二病也要谈恋爱！', '邪王真眼は最高です', getNowTime()));
+        await chatItemDB.addChatItem(new ChatItem('中二病也要谈恋爱！', '邪王真眼は最高です', getNowTime()));
+      }
+      //数据库数据
+      this.chatItems = await chatItemDB.getChatItems();
     }
+  }
+
+  onPageShow() {
+    //加载用户数据
+    this.avatarUrl = user.getAvatarUrl();
   }
   // when entry , request the permission
 
@@ -90,11 +100,11 @@ struct Index {
         }
       )
     }
-    .full()
+    .width('100%')
+    .height('90%')
     .alignListItem(ListItemAlign.Center)
   }
 }
-
 
 /*
  * 样式表：占满空间

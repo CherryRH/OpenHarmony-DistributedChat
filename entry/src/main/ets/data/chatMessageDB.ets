@@ -1,5 +1,4 @@
 import relationalStore from '@ohos.data.relationalStore';
-import {RDBConfig} from '../utils/common'
 import { avatars } from '../utils/common';
 
 /*
@@ -8,7 +7,7 @@ import { avatars } from '../utils/common';
  * */
 export default class ChatMessageDB {
   //关系型数据库配置
-  private config: RDBConfig;
+  private config: relationalStore.StoreConfig;
 
   constructor(ID: number) {
     this.config = {

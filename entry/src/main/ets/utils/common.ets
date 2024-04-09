@@ -1,6 +1,6 @@
 import relationalStore from '@ohos.data.relationalStore';
 
-//此文件添加常量
+//此文件添加常量和辅助函数等
 
 //用户首选项文件名称
 const userPrefName: string = 'UserPreference';
@@ -21,8 +21,8 @@ export const avatars: Resource[] = [
   $r('app.media.avatar_3')
 ]
 
-//关系型数据库配置接口
-export interface RDBConfig {
-  name: string,
-  securityLevel: relationalStore.SecurityLevel
+//获取当前时间字符串
+export function getNowTime() {
+  let date: Date = new Date();
+  return date.toString();
 }

@@ -1,4 +1,5 @@
-import { avatars } from '../utils/common';
+import userPrefName, { avatars, userPrefKeys } from '../utils/common';
+import preferenceUtil from '../utils/UserPreferenceUtil';
 
 /*
  * 类：用户
@@ -8,6 +9,8 @@ export class User {
   private name: string;
   private avatarUrl: Resource = $r('app.media.ic_user_portrait');
   private avatarType: number;
+
+  private logTag: string = 'UserTag';
 
   constructor(userID?: string, userName?: string, avatarType?: number) {
     this.userID = userID ?? 'User@unknown.com';
@@ -46,6 +49,34 @@ export class User {
       this.avatarUrl = avatars[avatarType];
     }
     else this.avatarUrl = avatars[0];
+  }
+
+  //从用户首选项加载信息
+  async loadUser() {
+    if (preferenceUtil.isLoaded(userPrefName)) {
+      //从首选项加载
+      let userName = await preferenceUtil.getPereferenceValue(userPrefName, userPrefKeys.get('userName'), 'User');
+      let userID = await preferenceUtil.getPereferenceValue(userPrefName, userPrefKeys.get('userID'), 'User@unknown.com');
+      let avatarType = await preferenceUtil.getPereferenceValue(userPrefName, userPrefKeys.get('avatarUrlType'), 0);
+      this.setName(userName as string);
+      this.setID(userID as string);
+      this.setAvatarType(avatarType as number);
+    }
+    else {
+      console.warn(this.logTag, '用户首选项未加载（可能在使用预览器）');
+    }
+  }
+
+  //保存到用户首选项
+  async saveUser() {
+    if (preferenceUtil.isLoaded(userPrefName)) {
+      await preferenceUtil.putPereferenceValue(userPrefName, userPrefKeys.get('userName'), this.name);
+      await preferenceUtil.putPereferenceValue(userPrefName, userPrefKeys.get('userID'), this.userID);
+      await preferenceUtil.putPereferenceValue(userPrefName, userPrefKeys.get('avatarUrlType'), this.avatarType);
+    }
+    else {
+      console.warn(this.logTag, '用户首选项未加载（可能在使用预览器）');
+    }
   }
 }
 

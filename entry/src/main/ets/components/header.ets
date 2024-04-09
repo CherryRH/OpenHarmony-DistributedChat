@@ -34,7 +34,7 @@ export default struct Header{
         .fontWeight(FontWeight.Bold)
     }
     .width("100%")
-    .height("60")
+    .height("70")
     .backgroundColor($r('app.color.header_background'))
   }
 }
@@ -68,7 +68,7 @@ export struct BackHeader{
         .fontWeight(FontWeight.Bold)
     }
     .width("100%")
-    .height("60")
+    .height("70")
     .backgroundColor($r('app.color.header_background'))
   }
 }

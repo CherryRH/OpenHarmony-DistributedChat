@@ -18,6 +18,7 @@ export struct ChatCard {
     Row({space: 15}) {
       Image(this.iconUrl)
         .height('100%')
+        .borderRadius(10)
       Column() {
         Text(this.name)
         Blank()
@@ -47,7 +48,7 @@ export struct ChatCard {
     .shadow({ radius: 10, color: Color.Gray, offsetX: 6, offsetY: 4 })
     .clickEffect({level: ClickEffectLevel.HEAVY, scale: 0.9})
     .onClick(() => {
-      routerChatPage(this.ID);
+      routerChatPage(this.ID, this.name);
     })
   }
 }

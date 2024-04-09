@@ -43,7 +43,6 @@ struct ChatPage {
 
   handleMessageSend = () => {
     if(this.messageStr == "") return;
-    console.log(user.getAvatarType().toString());
     this.chatMessages.push(new ChatMessage(user.getName(), this.messageStr, true , user.getAvatarType()))
     this.messageStr = ""
     this.scroller.scrollToIndex(this.chatMessages.length - 1);
@@ -51,7 +50,7 @@ struct ChatPage {
 
   build() {
     Column() {
-      BackHeader({title: '聊天' + params.id})
+      BackHeader({title: params.name + params.id.toString()})
       Row({space: 5}){
         List({space: 6, scroller: this.scroller}) {
           ForEach(
@@ -63,9 +62,8 @@ struct ChatPage {
             }
           )
         }
-
       }
-    .height('85%')
+      .height('83%')
       ChatInput({messageStr: this.messageStr, handleMessageSend: this.handleMessageSend})
     }
     .full()

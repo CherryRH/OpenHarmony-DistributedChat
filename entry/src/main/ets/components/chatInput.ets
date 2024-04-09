@@ -27,9 +27,8 @@ export default struct ChatInput {
       .justifyContent(FlexAlign.SpaceBetween)
     }
     .width('100%')
-    .height(60)
     .backgroundColor($r('app.color.card_background'))
-    .padding(3)
+    .padding(5)
     .justifyContent(FlexAlign.Center)
   }
 }
