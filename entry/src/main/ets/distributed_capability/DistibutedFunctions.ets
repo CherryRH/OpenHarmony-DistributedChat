@@ -13,7 +13,45 @@ export class DistributedDeviceManager {
     // call create Device Manager , pass a callback function . 2 para : error : error code , pass 1 when error in create
     // call create Device Manager , pass a callback function . 2 para : error : error code , pass 1 when error in create
     // data  : type is deviceManager.DeviceManager
-
+    deviceManager.createDeviceManager("com.ohprp.distributedchat", (error, data) => {
+      if (error) {
+        console.error(`[DistributedDeviceManager]create device manager failed,error:${error.message}`);
+        return;
+      }
+      DistributedDeviceManager.pDeviceManager = data;
+      console.info('[DistributedDeviceManager]create device manager successfully');
+      try {
+        DistributedDeviceManager.publishID = Math.floor(Math.random() * 10000 + 1000);
+        // 发布周边设备识别;若上一次发布还没有结束，则会返回Publish invalid
+        data.publishDeviceDiscovery({
+          publishId: DistributedDeviceManager.publishID,
+          mode: deviceManager.DiscoverMode.DISCOVER_MODE_ACTIVE,
+          freq: deviceManager.ExchangeFreq.HIGH,
+          ranging: false
+        })
+        console.info('[DistributedDeviceManager]publishDeviceDiscovery successfully')
+      } catch (error) {
+        console.error(`[DistributedDeviceManager]publishDeviceDiscovery failed,error:${error}`)
+      }
+      try {
+        // 注册设备状态改变回调。
+        data.on('deviceStateChange', (data) => {
+          console.info("[DistributedDeviceManager]deviceStateChange on:" + JSON.stringify(data))
+          if (data.action == deviceManager.DeviceStateChangeAction.READY) {
+            AppStorage.Set('statusColor', '#ff4fc100')
+          } else if (data.action == deviceManager.DeviceStateChangeAction.OFFLINE) {
+            AppStorage.Set('statusColor', '#ffff0000')
+          } else if (data.action == deviceManager.DeviceStateChangeAction.ONLINE) {
+            AppStorage.Set('statusColor', '#ffffd500')
+          }
+        })
+        console.info('[DistributedDeviceManager]deviceStateChange on successfully')
+      } catch (error) {
+        console.error(`[DistributedDeviceManager]deviceStateChange failed,error:${error.message}`)
+      }
+      // after intialize , start dicover device
+      DistributedDeviceManager.startDeviceDiscovery()
+    })
   }
   // 发起周边设备搜索; 上一次发现未结束，则返回Discovery Invalid
       static startDeviceDiscovery()
