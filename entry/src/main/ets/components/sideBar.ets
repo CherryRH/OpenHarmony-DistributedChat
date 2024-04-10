@@ -1,6 +1,9 @@
 
-// xxx.ets
 import web_webview from '@ohos.web.webview'
+
+/*
+ * 组件：侧边栏
+ * */
 @Component
 export default struct SideBar {
 

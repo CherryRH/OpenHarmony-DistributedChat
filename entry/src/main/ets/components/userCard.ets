@@ -4,8 +4,8 @@ import preferenceUtil from '../utils/UserPreferenceUtil'
 import userPrefName from '../utils/common'
 
 /*
- * 组件：我的卡片
- * 使用：显示我的用户卡片
+ * 组件：用户卡片
+ * 使用：在用户界面显示用户卡片
  * */
 @Component
 export default struct UserCard {

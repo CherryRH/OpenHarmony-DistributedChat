@@ -9,29 +9,34 @@ import { DistributedDeviceManager } from '../distributed_capability/DistibutedFu
 import preferenceUtil from '../utils/UserPreferenceUtil'
 import userPrefName from '../utils/common';
 import chatItemDB from '../data/chatItemDB';
+import deviceManager from '@ohos.distributedHardware.deviceManager';
 
 const PERMISSIONS: Array<Permissions>= [
   'ohos.permission.DISTRIBUTED_DATASYNC'
 ] ;
 
 export default class EntryAbility extends UIAbility {
-  public getContext(): Context {
-    return this.getContext();
-  }
 
   async onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
 
+    //设置屏幕常亮（开发板太容易熄了）
+    let thisWindow = await window.getLastWindow(this.context);
+    thisWindow.setWindowKeepScreenOn(true);
+
+    //加载用户首选项
+    await preferenceUtil.loadPreference(this.context, userPrefName);
+    //初始化聊天列表数据库
+    chatItemDB.initChatItemDB(this.context);
+
     console.log("Create Entry Ability") ;
+    //申请分布式权限
     requestPermission(this.context,PERMISSIONS).then(()=>
     {
       checkPermission(this.context,PERMISSIONS) ;
     }) ;
+    //分布式设备管理器初始化
     DistributedDeviceManager.init() ;
-
-    //设置屏幕常亮（开发板太容易熄了）
-    let thisWindow = await window.getLastWindow(this.context);
-    thisWindow.setWindowKeepScreenOn(true);
   }
 
   onDestroy(): void {
@@ -41,11 +46,6 @@ export default class EntryAbility extends UIAbility {
   async onWindowStageCreate(windowStage: window.WindowStage) {
     // Main window is created, set main page for this ability
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
-
-    //加载用户首选项
-    await preferenceUtil.loadPreference(this.context, userPrefName);
-    //初始化聊天列表数据库
-    chatItemDB.initChatItemDB(this.context);
 
     windowStage.loadContent('pages/Index', (err, data) => {
       if (err.code) {
