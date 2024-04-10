@@ -31,11 +31,11 @@ export function routerUserPage() {
   )
 }
 
-export function routerChatPage(chatID: number) {
+export function routerChatPage(chatID: number, chatName: string) {
   router.pushUrl(
     {
       url: 'pages/ChatPage',
-      params: new PageInfo(chatID)
+      params: new PageInfo(chatID, chatName)
     },
     router.RouterMode.Single,
     Error => {
@@ -51,8 +51,9 @@ export function routerChatPage(chatID: number) {
  * */
 export class PageInfo {
   id: number
-
-  constructor(id?: number) {
+  name: string
+  constructor(id?: number, name?: string) {
     this.id = id ?? 0;
+    this.name = name ?? '';
   }
 }

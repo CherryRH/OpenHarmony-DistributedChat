@@ -18,7 +18,7 @@
         "description": "$string:EntryAbility_desc",
         "icon": "$media:icon",
         "label": "$string:EntryAbility_label",
-        "startWindowIcon": "$media:startIcon",
+        "startWindowIcon": "$media:start_background",
         "startWindowBackground": "$color:start_window_background",
         "exported": true,
         "skills": [
@@ -48,12 +48,15 @@
         {
           "name" : "ohos.permission.DISTRIBUTED_SOFTBUS_CENTER"
         },
+      {
+        "name" : "ohos.permission.INTERNET"
+      },
       // request distributed device granting and authenticating permission .
       {
         "name" :"ohos.permission.ACCESS_SERVICE_DM"
       }
-
       ]
+
   }
 
 }

@@ -5,6 +5,8 @@
 export default struct ChatInput {
   @Link messageStr: string;
 
+  handleMessageSend = () => {}
+
   build() {
     Column() {
       Row({space: 10}) {
@@ -18,15 +20,15 @@ export default struct ChatInput {
         Button('发送')
           .layoutWeight(1)
           .backgroundColor($r('app.color.button_background'))
+          .onClick(() => {this.handleMessageSend()})
       }
       .width('100%')
       .padding(3)
       .justifyContent(FlexAlign.SpaceBetween)
     }
     .width('100%')
-    .height(60)
     .backgroundColor($r('app.color.card_background'))
-    .padding(3)
+    .padding(5)
     .justifyContent(FlexAlign.Center)
   }
 }

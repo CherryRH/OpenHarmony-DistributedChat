@@ -125,10 +125,11 @@ export default struct UserCard {
                   this.yOffset = '-30%';
                   this.ifEdit = false;
                 })
-                //保存用户首选项
-                await preferenceUtil.putPereferenceValue(userPrefName, userPrefKeys.get('userName'), this.username);
-                await preferenceUtil.putPereferenceValue(userPrefName, userPrefKeys.get('userID'), this.userID);
-                await preferenceUtil.putPereferenceValue(userPrefName, userPrefKeys.get('avatarUrlType'), this.avatarType);
+                //保存用户信息
+                user.setName(this.username);
+                user.setID(this.userID);
+                //保存用户信息到首选项
+                user.saveUser();
               })
           }
           .width('100%')

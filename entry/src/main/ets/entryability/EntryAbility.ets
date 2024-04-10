@@ -7,15 +7,21 @@ import abilityAccessCtrl,{Permissions} from '@ohos.abilityAccessCtrl'
 import { checkPermission, requestPermission } from '../distributed_capability/RequestPermission'
 import { DistributedDeviceManager } from '../distributed_capability/DistibutedFunctions';
 import preferenceUtil from '../utils/UserPreferenceUtil'
-import userPrefName from '../utils/common'
+import userPrefName from '../utils/common';
+import chatItemDB from '../data/chatItemDB';
+
 const PERMISSIONS: Array<Permissions>= [
   'ohos.permission.DISTRIBUTED_DATASYNC'
 ] ;
+
 export default class EntryAbility extends UIAbility {
+  public getContext(): Context {
+    return this.getContext();
+  }
+
   async onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
-    //加载用户首选项
-    await preferenceUtil.loadPreference(this.context, userPrefName);
+
     console.log("Create Entry Ability") ;
     requestPermission(this.context,PERMISSIONS).then(()=>
     {
@@ -32,9 +38,14 @@ export default class EntryAbility extends UIAbility {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
   }
 
-  onWindowStageCreate(windowStage: window.WindowStage): void {
+  async onWindowStageCreate(windowStage: window.WindowStage) {
     // Main window is created, set main page for this ability
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
+
+    //加载用户首选项
+    await preferenceUtil.loadPreference(this.context, userPrefName);
+    //初始化聊天列表数据库
+    chatItemDB.initChatItemDB(this.context);
 
     windowStage.loadContent('pages/Index', (err, data) => {
       if (err.code) {

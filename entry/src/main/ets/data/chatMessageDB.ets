@@ -1,5 +1,4 @@
 import relationalStore from '@ohos.data.relationalStore';
-import {RDBConfig} from '../utils/common'
 import { avatars } from '../utils/common';
 
 /*
@@ -8,7 +7,7 @@ import { avatars } from '../utils/common';
  * */
 export default class ChatMessageDB {
   //关系型数据库配置
-  private config: RDBConfig;
+  private config: relationalStore.StoreConfig;
 
   constructor(ID: number) {
     this.config = {
@@ -56,7 +55,7 @@ export class ChatMessage {
   time: Date; // 新增的时间属性
   isSelf: Boolean
 
-  constructor(username: string, message: string, isSelf: Boolean , iconUrl?: Resource , time?: Date , avatarUrlType?: number) {
+  constructor(username: string, message: string, isSelf: Boolean ,avatarUrlType?: number, time?: Date) {
     this.username = username;
     this.avatarUrlType = avatarUrlType ?? 0;
     this.iconUrl = avatars[this.avatarUrlType];

@@ -9,4 +9,4 @@
 /.clang-format
 /.clang-tidy
 **/.test
-/build-profile.json5
+build-profile.json5

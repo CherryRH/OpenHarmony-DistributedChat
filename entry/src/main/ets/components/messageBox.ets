@@ -23,6 +23,7 @@ export default struct MessageBox {
                 .height('40')
                 .width('40')
                 .margin(5)
+                .borderRadius(10)
             }
             .justifyContent(FlexAlign.Start)
             .alignItems(VerticalAlign.Top)
@@ -92,6 +93,7 @@ export default struct MessageBox {
                 .height('40')
                 .width('40')
                 .margin(5)
+                .borderRadius(10)
             }
             .justifyContent(FlexAlign.Start)
             .alignItems(VerticalAlign.Top)
