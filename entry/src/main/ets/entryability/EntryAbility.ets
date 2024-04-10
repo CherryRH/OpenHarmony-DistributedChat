@@ -27,7 +27,7 @@ export default class EntryAbility extends UIAbility {
     {
       checkPermission(this.context,PERMISSIONS) ;
     }) ;
-    DistributedDeviceManager.startDeviceDiscovery() ;
+    DistributedDeviceManager.init() ;
 
     //设置屏幕常亮（开发板太容易熄了）
     let thisWindow = await window.getLastWindow(this.context);

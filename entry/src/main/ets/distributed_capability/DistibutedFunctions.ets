@@ -12,28 +12,28 @@ export class DistributedDeviceManager {
     // data  : type is deviceManager.DeviceManager
     deviceManager.createDeviceManager("com.ohprp.distributedchat", (error, data) => {
       if (error) {
-        console.error(`create device manager failed,error:${JSON.stringify(error)}`);
+        console.error(`[DistributedDeviceManager]create device manager failed,error:${error.message}`);
         return;
       }
       DistributedDeviceManager.pDeviceManager = data;
-      console.info('create device manager successfully');
+      console.info('[DistributedDeviceManager]create device manager successfully');
       try {
         DistributedDeviceManager.publishID = Math.floor(Math.random() * 10000 + 1000);
-        // 发布周边设备识别
+        // 发布周边设备识别;若上一次发布还没有结束，则会返回Publish invalid
         data.publishDeviceDiscovery({
           publishId: DistributedDeviceManager.publishID,
           mode: deviceManager.DiscoverMode.DISCOVER_MODE_ACTIVE,
           freq: deviceManager.ExchangeFreq.HIGH,
           ranging: false
         })
-        console.info('publishDeviceDiscovery successfully')
+        console.info('[DistributedDeviceManager]publishDeviceDiscovery successfully')
       } catch (error) {
-        console.error(`publishDeviceDiscovery failed,error:${JSON.stringify(error)}`)
+        console.error(`[DistributedDeviceManager]publishDeviceDiscovery failed,error:${error}`)
       }
       try {
         // 注册设备状态改变回调。
         data.on('deviceStateChange', (data) => {
-          console.info("deviceStateChange on:" + JSON.stringify(data))
+          console.info("[DistributedDeviceManager]deviceStateChange on:" + JSON.stringify(data))
           if (data.action == deviceManager.DeviceStateChangeAction.READY) {
             AppStorage.Set('statusColor', '#ff4fc100')
           } else if (data.action == deviceManager.DeviceStateChangeAction.OFFLINE) {
@@ -42,13 +42,15 @@ export class DistributedDeviceManager {
             AppStorage.Set('statusColor', '#ffffd500')
           }
         })
-        console.info('deviceStateChange on successfully')
+        console.info('[DistributedDeviceManager]deviceStateChange on successfully')
       } catch (error) {
-        console.error(`deviceStateChange failed,error:${JSON.stringify(error)}`)
+        console.error(`[DistributedDeviceManager]deviceStateChange failed,error:${error.message}`)
       }
+      // after intialize , start dicover device
+      DistributedDeviceManager.startDeviceDiscovery()
     })
   }
-  // 发起周边设备搜索
+  // 发起周边设备搜索; 上一次发现未结束，则返回Discovery Invalid
       static startDeviceDiscovery()
       {
         try {
@@ -62,10 +64,13 @@ export class DistributedDeviceManager {
             isSameAccount: false,
             capability: deviceManager.SubscribeCap.SUBSCRIBE_CAPABILITY_OSD
           })
-          //设置回调监听，当发现时调用，并将发现的设备信息存储在AppStorage中。
+          //设置回调监听，当发现时调用，并将发现的设备信息存储在
+          //
+          //
+          // AppStorage中。
           DistributedDeviceManager.pDeviceManager.on('deviceFound', (data) => {
-            console.info('device found')
-            console.info("deviceFound:" + JSON.stringify(data))
+            console.info('[DistributedDeviceManager]device found')
+            console.info("[DistributedDeviceManager]deviceFound:" + JSON.stringify(data))
             // DistributedDeviceManager.distributedDeviceList = []
             if (DistributedDeviceManager.distributedDeviceList.length == 0) {
               DistributedDeviceManager.distributedDeviceList.push(data.device)
@@ -85,7 +90,7 @@ export class DistributedDeviceManager {
             }
           })
         } catch (error) {
-          console.error(`startDeviceDiscovery failed,error:${JSON.stringify(error)}`)
+          console.error(`[DistributedDeviceManager]startDeviceDiscovery failed,error:${error} ${error.message}`)
         }
       }
     // 进行设备认证
@@ -96,13 +101,13 @@ export class DistributedDeviceManager {
           extraInfo: undefined
         }, (error, data) => {
           if (error) {
-            console.error("authenticateDevice error:" + JSON.stringify(error))
+            console.error("[DistributedDeviceManager]authenticateDevice error:" + JSON.stringify(error.message))
             return
           }
-          console.info("authenticateDevice result:" + JSON.stringify(data))
+          console.info("[DistributedDeviceManager]authenticateDevice result:" + JSON.stringify(data))
         })
       } catch (error) {
-        console.error(`authenticateDevice error:${JSON.stringify(error)}`)
+        console.error(`[DistributedDeviceManager]authenticateDevice error:${JSON.stringify(error)}`)
       }
     }
   // 停止发现周边设备
@@ -110,7 +115,8 @@ export class DistributedDeviceManager {
     try {
       DistributedDeviceManager.pDeviceManager.stopDeviceDiscovery(DistributedDeviceManager.subscribeID)
     } catch (error) {
-      console.error(`stopDeviceDiscovery failed,error:${JSON.stringify(error)}`)
+
+      console.error(`[DistributedDeviceManager]stopDeviceDiscovery failed,error:${JSON.stringify(error)}`)
     }
   }
   // 获得已认证设备列表，返回一个Array<DeviceInfo>.
