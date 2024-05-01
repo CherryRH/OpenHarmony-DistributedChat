@@ -46,7 +46,7 @@ export class DistributedDeviceManager {
       } catch (error) {
         console.error(`[DistributedDeviceManager]deviceStateChange failed,error:${error.message}`)
       }
-      // after intialize , start dicover device
+      // after initialize , start discover device
       DistributedDeviceManager.startDeviceDiscovery()
     })
   }
@@ -119,7 +119,7 @@ export class DistributedDeviceManager {
       console.error(`[DistributedDeviceManager]stopDeviceDiscovery failed,error:${JSON.stringify(error)}`)
     }
   }
-  // 获得已认证设备列表，返回一个Array<DeviceInfo>.
+  // 获得已认证设备列表，返回一个Array<DeviceBasicInfo>.
   static getTrustedDeviceListSync() {
     return DistributedDeviceManager.pDeviceManager.getTrustedDeviceListSync()
   }

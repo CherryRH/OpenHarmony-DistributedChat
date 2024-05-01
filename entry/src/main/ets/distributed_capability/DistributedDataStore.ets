@@ -20,9 +20,9 @@ export default class ChatDataStore
     ,store : relationalStore.RdbStore)=>
     {
 
-      store.executeSql("CREATE TABLE IF NOT EXISTS CHAT CHAT_ID INTEGER PRIMARY　KEY , " +
+      store.executeSql("CREATE TABLE IF NOT EXISTS CHAT , CHAT_ID INTEGER PRIMARY　KEY , " +
         "SENDER_ID INTEGER , " +
-        "RECEIVER_ID INTEGER")
+        "RECEIVER_ID INTEGER" + ", CONTENT VARCHAR(100)")
       store.setDistributedTables(["CHAT"])
       ChatDataStore.store = store
     })
