@@ -1,3 +1,7 @@
+
+/*
+ * 组件：主页控制侧边栏的更多按钮
+ * */
 @Component
 export default struct MoreButton {
   //按钮状态

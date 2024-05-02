@@ -44,9 +44,9 @@ struct Index {
     else {
       //如果数据库为空，则初始化几个聊天
       if (await chatItemDB.isEmpty()) {
-        await chatItemDB.addChatItem(new ChatItem('中二病也要谈恋爱！', '邪王真眼は最高です', getNowTime()));
-        await chatItemDB.addChatItem(new ChatItem('中二病也要谈恋爱！', '邪王真眼は最高です', getNowTime()));
-        await chatItemDB.addChatItem(new ChatItem('中二病也要谈恋爱！', '邪王真眼は最高です', getNowTime()));
+        await chatItemDB.addChatItem(new ChatItem('聊天', '最新消息', getNowTime()));
+        await chatItemDB.addChatItem(new ChatItem('聊天', '最新消息', getNowTime()));
+        await chatItemDB.addChatItem(new ChatItem('聊天', '最新消息', getNowTime()));
       }
       //数据库数据
       this.chatItems = await chatItemDB.getChatItems();
