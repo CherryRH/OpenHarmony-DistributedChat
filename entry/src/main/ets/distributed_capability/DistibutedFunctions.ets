@@ -5,9 +5,8 @@ export class DistributedDeviceManager {
   static subscribeID: number;
   static publishID: number;
   static distributedDeviceList: Array<deviceManager.DeviceInfo> = [];
-
+  static localDeviceNetId : string ;
   static init() {
-    // call create Device Manager , pass a callback function . 2 para : error : error code , pass 1 when error in create
     // call create Device Manager , pass a callback function . 2 para : error : error code , pass 1 when error in create
     // data  : type is deviceManager.DeviceManager
     deviceManager.createDeviceManager("com.ohprp.distributedchat", (error, data) => {
@@ -16,6 +15,7 @@ export class DistributedDeviceManager {
         return;
       }
       DistributedDeviceManager.pDeviceManager = data;
+      DistributedDeviceManager.localDeviceNetId = data.getLocalDeviceInfoSync().networkId ;
       console.info('[DistributedDeviceManager]create device manager successfully');
       try {
         DistributedDeviceManager.publishID = Math.floor(Math.random() * 10000 + 1000);

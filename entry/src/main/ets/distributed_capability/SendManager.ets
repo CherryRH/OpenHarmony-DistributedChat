@@ -4,6 +4,7 @@ import common from '@ohos.app.ability.common';
 import Want from '@ohos.app.ability.Want';
 import { BusinessError } from '@ohos.base';
 const logTag: string = '[SendManagerTestTag]';
+const wantFlag : string = 'SEND_DISTRIBUTED_CHAT_MESSAGE';
 export default class SendManager
 {
   // 需要保存一个uiAbilityContext实例,用于使用startAbility传递Want
@@ -16,12 +17,19 @@ export default class SendManager
   // 传入DistributedFunctions中储存的networkId，与要发送的message，通过want拉起serviceAbility，由service处理。
   static async SendMessage(networkId: string , message:string)
   {
+    if(!DistributedDeviceManager.localDeviceNetId)
+    {
+      console.error(logTag,"The Distributed Functions Dont Initialized Correctly , SendMessage Failed") ;
+      return ;
+    }
     let want: Want = {
       deviceId: networkId,
-      bundleName: 'com.example.myapplication',
-      abilityName: 'ServiceAbility',
+      bundleName: 'com.ohprp.distributedchat',
+      abilityName: 'EntryAbility',
       parameters: {
-        message: message
+        flag : wantFlag ,
+        message: message ,
+        sender : DistributedDeviceManager.localDeviceNetId
       }
     }
     if(!SendManager.context)
