@@ -6,6 +6,8 @@ import  MessageBox from "../components/messageBox"
 import { ChatMessage } from '../data/Chat'
 import user from '../data/User'
 import logLibrary from '@ohos.logLibrary';
+import SendManager from '../distributed_capability/SendManager'
+import { DistributedDeviceManager } from '../distributed_capability/DistibutedFunctions';
 
 //获取路由传参
 const params: PageInfo = router.getParams() as PageInfo;
@@ -44,6 +46,8 @@ struct ChatPage {
   handleMessageSend = () => {
     if(this.messageStr == "") return;
     this.chatMessages.push(new ChatMessage(user.getName(), this.messageStr, true , user.getAvatarType()))
+    //  测试时使用的给自己发消息的测试函数，可以作为使用示例。真实场景下应使用DDM中的设备List的NetworkID进行发送。
+    // SendManager.SendMessage(DistributedDeviceManager.localDeviceNetId,this.messageStr)
     this.messageStr = ""
     this.scroller.scrollToIndex(this.chatMessages.length - 1);
   }
