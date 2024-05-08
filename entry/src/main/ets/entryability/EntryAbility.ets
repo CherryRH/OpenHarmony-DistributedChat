@@ -8,7 +8,8 @@ import { checkPermission, requestPermission } from '../distributed_capability/Re
 import { DistributedDeviceManager } from '../distributed_capability/DistibutedFunctions';
 import preferenceUtil from '../utils/UserPreferenceUtil'
 import userPrefName from '../utils/common';
-import chatItemDB from '../data/chatItemDB';
+import chatItemDB, { ChatItem } from '../data/chatItemDB';
+import chatHistoryDB from '../data/chatHistoryDB'
 import deviceManager from '@ohos.distributedHardware.deviceManager';
 
 const PERMISSIONS: Array<Permissions>= [
@@ -28,15 +29,18 @@ export default class EntryAbility extends UIAbility {
     await preferenceUtil.loadPreference(this.context, userPrefName);
     //初始化聊天列表数据库
     chatItemDB.initChatItemDB(this.context);
+    //初始化历史记录数据库
+    chatHistoryDB.initChatHistoryDB(this.context);
 
-    console.log("Create Entry Ability") ;
+    console.log("Create Entry Ability");
     //申请分布式权限
     requestPermission(this.context,PERMISSIONS).then(()=>
     {
-      checkPermission(this.context,PERMISSIONS) ;
+      checkPermission(this.context,PERMISSIONS);
     }) ;
+
     //分布式设备管理器初始化
-    DistributedDeviceManager.init() ;
+    DistributedDeviceManager.init();
   }
 
   onDestroy(): void {

@@ -9,6 +9,8 @@ import user from '../data/User'
 import { ChatItem } from '../data/chatItemDB'
 import chatItemDB from '../data/chatItemDB'
 import { getNowTime } from '../utils/common'
+import chatHistoryDB from '../data/chatHistoryDB'
+import { ChatMessage } from '../data/Chat'
 
 const logTag: string = 'IndexTestTag';
 
@@ -50,6 +52,13 @@ struct Index {
       }
       //数据库数据
       this.chatItems = await chatItemDB.getChatItems();
+      // 初始化历史记录，如果数据库为空，则加入几条信息
+      if (await chatHistoryDB.isEmpty()) {
+        for (let i = 0; i < this.chatItems.length; i++) {
+          await chatHistoryDB.addChatMessage(new ChatMessage(this.chatItems[i].ID, '门酱', '我要玩原神' , false));
+          await chatHistoryDB.addChatMessage(new ChatMessage(this.chatItems[i].ID, '大伟哥', '玩原神玩的' , false));
+        }
+      }
     }
   }
 
