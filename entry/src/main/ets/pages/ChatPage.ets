@@ -67,10 +67,7 @@ struct ChatPage {
   handleMessageSend = () => {
     if(this.messageStr == "") return;
     let newMessage: ChatMessage = new ChatMessage(this.chatID, user.getName(), this.messageStr, true, user.getAvatarType());
-    console.log(logTag, newMessage.chatID);
     this.chatMessages.push(newMessage);
-    this.messageStr = "";
-    this.chatMessages.push(new ChatMessage(user.getName(), this.messageStr, true , user.getAvatarType()))
     //  测试时使用的给自己发消息的测试函数，可以作为使用示例。真实场景下应使用DDM中的设备List的NetworkID进行发送。
     // SendManager.SendMessage(DistributedDeviceManager.localDeviceNetId,this.messageStr)
     this.messageStr = ""
