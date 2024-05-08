@@ -6,10 +6,12 @@ import window from '@ohos.window';
 import abilityAccessCtrl,{Permissions} from '@ohos.abilityAccessCtrl'
 import { checkPermission, requestPermission } from '../distributed_capability/RequestPermission'
 import { DistributedDeviceManager } from '../distributed_capability/DistibutedFunctions';
+import { ReceivedMessageList } from '../distributed_capability/ReceivedMessages' ;
 import preferenceUtil from '../utils/UserPreferenceUtil'
 import userPrefName from '../utils/common';
 import chatItemDB, { ChatItem } from '../data/chatItemDB';
 import chatHistoryDB from '../data/chatHistoryDB'
+import SendManager from '../distributed_capability/SendManager';
 import deviceManager from '@ohos.distributedHardware.deviceManager';
 
 const PERMISSIONS: Array<Permissions>= [
@@ -40,7 +42,8 @@ export default class EntryAbility extends UIAbility {
     }) ;
 
     //分布式设备管理器初始化
-    DistributedDeviceManager.init();
+    DistributedDeviceManager.init() ;
+    SendManager.init(this.context) ;
   }
 
   onDestroy(): void {
@@ -73,5 +76,22 @@ export default class EntryAbility extends UIAbility {
   onBackground(): void {
     // Ability has back to background
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onBackground');
+  }
+  // 用于响应其他设备发来的消息。 已经过本机内部使用自己的networkID发消息调试，未经过其他设备协同调试。
+  onNewWant(want:Want):void
+  {
+    if(want.parameters) {
+      if (want.parameters.flag === 'SEND_DISTRIBUTED_CHAT_MESSAGE') {
+        let sender: string = JSON.stringify(want.parameters.sender);
+        let message: string = JSON.stringify(want.parameters.message);
+        console.info('testTag', `SuccessFully Received Message ${message} from ${sender}`);
+        ReceivedMessageList.NewMessage(message, sender);
+
+      }
+    }
+    else
+    {
+      hilog.error(0x0000, 'testTag', 'Dont Received Parameter from the want');
+    }
   }
 }
