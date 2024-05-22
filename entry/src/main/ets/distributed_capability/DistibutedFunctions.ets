@@ -64,14 +64,13 @@ export class DistributedDeviceManager {
             isSameAccount: false,
             capability: deviceManager.SubscribeCap.SUBSCRIBE_CAPABILITY_OSD
           })
-          //设置回调监听，当发现时调用，并将发现的设备信息存储在
-          //
-          //
-          // AppStorage中。
+
+          //设置回调监听，当发现时调用，并将发现的设备信息存储在AppStorage中。
           DistributedDeviceManager.pDeviceManager.on('deviceFound', (data) => {
             console.info('[DistributedDeviceManager]device found')
             console.info("[DistributedDeviceManager]deviceFound:" + JSON.stringify(data))
-            // DistributedDeviceManager.distributedDeviceList = []
+
+            // 每当发现新设备，存入DeviceList
             if (DistributedDeviceManager.distributedDeviceList.length == 0) {
               DistributedDeviceManager.distributedDeviceList.push(data.device)
               AppStorage.Set('distributedDeviceList', DistributedDeviceManager.distributedDeviceList)
@@ -130,5 +129,10 @@ export class DistributedDeviceManager {
   // 释放资源
   static release() {
     DistributedDeviceManager.pDeviceManager.release()
+  }
+  // 返回所有发现的设备
+  static getDeviceList()
+  {
+    return DistributedDeviceManager.distributedDeviceList ;
   }
 }

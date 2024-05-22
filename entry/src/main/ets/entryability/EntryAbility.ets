@@ -78,7 +78,7 @@ export default class EntryAbility extends UIAbility {
     if(want.parameters) {
       if (want.parameters.flag === 'SEND_DISTRIBUTED_CHAT_MESSAGE') {
         let sender: string = JSON.stringify(want.parameters.sender);
-        let message: string = JSON.stringify(want.parameters.message);
+        let message: string = want.parameters.message.toString();
         console.info('testTag', `SuccessFully Received Message ${message} from ${sender}`);
         ReceivedMessageList.NewMessage(message, sender);
 
