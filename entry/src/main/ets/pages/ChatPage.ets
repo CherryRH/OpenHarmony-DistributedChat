@@ -3,7 +3,7 @@ import ChatInput from '../components/chatInput';
 import { BackHeader } from '../components/header'
 import { PageInfo } from '../utils/routers';
 import  MessageBox from "../components/messageBox"
-import {ChatMessage} from '../data/chatMessageDB'
+import { ChatMessage } from '../data/Chat'
 import user from '../data/User'
 import logLibrary from '@ohos.logLibrary';
 import SendManager from '../distributed_capability/SendManager'

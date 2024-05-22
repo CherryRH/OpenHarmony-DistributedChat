@@ -1,5 +1,6 @@
-import { User } from './User'
-import Message from './Message'
+import user from './User'
+import { avatars } from '../utils/common';
+
 /*
  * 类：聊天
  * */
@@ -8,7 +9,7 @@ class Chat {
   private name: string;
   private ID: number = 0;
 
-  private messageVector: Message[] = [];
+  private chatMessages: ChatMessage[] = [];
 
   constructor(name: string, iconUrl?: Resource) {
     this.name = name;
@@ -27,22 +28,47 @@ class Chat {
     return this.ID;
   }
 
-  public getNewMessage(): Message | undefined {
-    if (this.messageVector.length > 0) {
-      return this.messageVector[this.messageVector.length - 1];
-    }
-    else return undefined;
-  }
-
   public setID(ID: number) {
     return this.ID = ID;
   }
 
-  public sendMessage(message: Message) {
-    if (!message || message.getText() === '') {
-      console.log('消息不能为空');
-    }
-    this.messageVector.push(message);
+  //获取最新消息
+  getNewChatMessage() {
+
+  }
+
+  //同步消息
+  updateChatMessages() {
+
+  }
+
+  //发送消息
+  sendChatMessage() {
+
+  }
+}
+
+/*
+ * 类：聊天消息对象
+ * */
+export class ChatMessage {
+  ID: number;
+  username : string;
+  message: string;
+  //用头像图片种类加载
+  iconUrl: Resource;
+  avatarUrlType: number;
+  time: Date; // 新增的时间属性
+  isSelf: Boolean
+
+  constructor(username: string, message: string, isSelf: Boolean ,avatarUrlType?: number, time?: Date) {
+    this.username = username;
+    this.avatarUrlType = avatarUrlType ?? 0;
+    this.iconUrl = avatars[this.avatarUrlType];
+    this.ID = 0;
+    this.time = time ?? new Date(); // 初始化时间属性，默认为当前时间
+    this.message =  message
+    this.isSelf = isSelf ?? false
   }
 }
 

@@ -1,7 +1,6 @@
 import { IconType } from '@ohos.arkui.advanced.ComposeListItem';
 import { routerChatPage } from '../utils/routers';
 
-
 /*
  * 组件：聊天卡片
  * 使用：显示一个聊天卡片
